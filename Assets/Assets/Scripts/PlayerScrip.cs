@@ -20,13 +20,20 @@ public class PlayerScrip : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space)) 
         {
-            MoveForward();
+            //MoveForward();
+            Speen();
         }
     }
 
     void MoveForward()
     {
         transform.position = Vector3.Lerp(transform.position, targetPos.position, speed * Time.deltaTime);
+    }
+
+    void Speen()
+    {
+        speed = 1;
+        playerAnim.SetBool("isSpinning", true);
     }
 
     void StopMovement()

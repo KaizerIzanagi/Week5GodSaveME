@@ -7,12 +7,16 @@ public class PlayerManager : MonoBehaviour
     public static PlayerManager Instance { get; private set; }
     //Player Game Object
     public GameObject player;
+    public Rigidbody rigidBody;
     //PlayerScripts
-    InputManager inputManager;
+    public InputManager inputManager;
     PlayerLocomotion locomotion;
     //Player Stats
+    [Range(0, 1000)]
     public float movementSpeed;
+    [Range(0, 1000)]
     public float rotationSpeed;
+    
 
     private void Awake()
     {
@@ -27,6 +31,7 @@ public class PlayerManager : MonoBehaviour
         }
         inputManager = player.GetComponent<InputManager>();
         locomotion = player.GetComponent<PlayerLocomotion>();
+        rigidBody = player.GetComponent<Rigidbody>();
     }
 
     private void Update()
