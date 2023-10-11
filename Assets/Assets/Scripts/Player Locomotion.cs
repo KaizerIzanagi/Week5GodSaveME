@@ -37,6 +37,13 @@ public class PlayerLocomotion : MonoBehaviour
         targetDirection = targetDirection + cameraOjb.right * PlayerManager.Instance.inputManager.horizontalInput;
         targetDirection.Normalize();
         targetDirection.y = 0;
+        
+        //line that makes the rotation the same as direction
+        if (targetDirection == Vector3.zero)
+        {
+            targetDirection = transform.forward;
+        }
+
 
         Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
         Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, PlayerManager.Instance.rotationSpeed);
