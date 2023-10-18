@@ -18,11 +18,17 @@ public class PlayerManager : MonoBehaviour
     public PlayerAnimation playerAnimation;
     //Player Stats
     [Header("Player Stats")]
-    [Range(0, 1000)]
+    [Range(0, 100)]
     public float movementSpeed;
-    [Range(0, 1000)]
+    [Range(0, 100)]
+    public float sprintSpeed;
+    [Range(0, 1)]
     public float rotationSpeed;
-    
+    [Header("Action Status")]
+    public bool isSprinting;
+    public bool isWalking;
+    public bool isJumping;
+
 
     private void Awake()
     {

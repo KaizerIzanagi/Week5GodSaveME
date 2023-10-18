@@ -15,6 +15,10 @@ public class PlayerAnimation : MonoBehaviour
     public void UpdateAnimatorValues(float horizontalmovement, float verticalmovement)
     {
         //damp time = blend time
+        if (PlayerManager.Instance.isSprinting)
+        {
+            horizontalmovement = 2; 
+        }
         PlayerManager.Instance.playerAnim.SetFloat(horizontal, horizontalmovement, 0.1f, Time.deltaTime);
         PlayerManager.Instance.playerAnim.SetFloat(vertical, verticalmovement, 0.1f, Time.deltaTime);
     }

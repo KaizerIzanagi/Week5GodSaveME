@@ -1,4 +1,4 @@
-using System.Collections;
+    using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
@@ -25,6 +25,17 @@ public class PlayerLocomotion : MonoBehaviour
         moveDirection = moveDirection + cameraOjb.right * PlayerManager.Instance.inputManager.horizontalInput;
         moveDirection.Normalize();
         moveDirection.y = 0;
+
+        if (PlayerManager.Instance.isSprinting)
+        {
+            moveDirection *= PlayerManager.Instance.sprintSpeed;
+        }
+        else
+        {
+            moveDirection *= PlayerManager.Instance.movementSpeed;
+        }
+
+
         moveDirection *= PlayerManager.Instance.movementSpeed;
         Vector3 movementVelocity = moveDirection;
         PlayerManager.Instance.rigidBody.velocity = movementVelocity;  

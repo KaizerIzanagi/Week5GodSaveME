@@ -155,20 +155,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0
   targetPos: {fileID: 945956333}
---- !u!114 &170358893
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 170358886}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd212c25182c45745926950439798cef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  verticalInput: 0
-  horizontalInput: 0
 --- !u!4 &170358895 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3e351847b9cb8254e9b0f2106e6afe81,
@@ -187,6 +173,7 @@ GameObject:
   - component: {fileID: 330585545}
   - component: {fileID: 330585544}
   - component: {fileID: 330585547}
+  - component: {fileID: 330585548}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -261,13 +248,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.9848078, z: -0.17364816, w: 0}
-  m_LocalPosition: {x: 0, y: 98, z: 170}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 40, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 20, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,6 +299,21 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!114 &330585548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330585543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24b20955ca7235947907f866ef942794, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 770684536}
+  smoothSpeed: 100
+  offset: {x: 0, y: 40, z: -100}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -493,6 +495,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalInput: 0
   horizontalInput: 0
+  moveAmount: 0
+  sprint_Input: 0
 --- !u!54 &770684539
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -518,7 +522,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &770684540
 CapsuleCollider:
@@ -539,8 +543,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 25.513968
-  m_Height: 66.610985
+  m_Radius: 10
+  m_Height: 66
   m_Direction: 1
   m_Center: {x: 4.122982, y: 33.498302, z: 10.939131}
 --- !u!114 &770684541
@@ -555,7 +559,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbff16da384457845b7ae5461492f431, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerAnim: {fileID: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -830,6 +833,11 @@ PrefabInstance:
       propertyPath: m_WarningMessage
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 3e351847b9cb8254e9b0f2106e6afe81,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -842,10 +850,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 170358891}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3e351847b9cb8254e9b0f2106e6afe81,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 170358893}
   m_SourcePrefab: {fileID: 100100000, guid: 3e351847b9cb8254e9b0f2106e6afe81, type: 3}
 --- !u!1 &1642393350
 GameObject:
@@ -878,9 +882,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 770684535}
   rigidBody: {fileID: 770684539}
+  playerAnim: {fileID: 0}
   inputManager: {fileID: 0}
-  movementSpeed: 1000
-  rotationSpeed: 500
+  locomotion: {fileID: 0}
+  playerAnimation: {fileID: 0}
+  movementSpeed: 10
+  sprintSpeed: 0
+  rotationSpeed: 0.1
+  isSprinting: 0
+  isWalking: 0
+  isJumping: 0
 --- !u!4 &1642393352
 Transform:
   m_ObjectHideFlags: 0
