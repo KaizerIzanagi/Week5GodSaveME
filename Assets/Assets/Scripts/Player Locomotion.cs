@@ -55,7 +55,6 @@ public class PlayerLocomotion : MonoBehaviour
             targetDirection = transform.forward;
         }
 
-
         Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
         Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, PlayerManager.Instance.rotationSpeed);
                 

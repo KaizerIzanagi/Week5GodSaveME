@@ -27,6 +27,7 @@ public class PlayerManager : MonoBehaviour
     [Header("Action Status")]
     public bool isSprinting;
     public bool isWalking;
+    public bool isRunning;
     public bool isJumping;
 
 

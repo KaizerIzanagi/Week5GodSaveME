@@ -17,7 +17,15 @@ public class PlayerAnimation : MonoBehaviour
         //damp time = blend time
         if (PlayerManager.Instance.isSprinting)
         {
-            horizontalmovement = 2; 
+            horizontalmovement = 2;
+        }
+        if (PlayerManager.Instance.isWalking)
+        {
+            horizontalmovement = 0.5f;
+        }
+        if (PlayerManager.Instance.isRunning)
+        {
+            horizontalmovement = 1;
         }
         PlayerManager.Instance.playerAnim.SetFloat(horizontal, horizontalmovement, 0.1f, Time.deltaTime);
         PlayerManager.Instance.playerAnim.SetFloat(vertical, verticalmovement, 0.1f, Time.deltaTime);
