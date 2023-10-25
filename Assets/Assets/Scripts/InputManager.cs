@@ -20,12 +20,12 @@ public class InputManager : MonoBehaviour
         {
             playerControls = new InputActions();
             playerControls.PlayerMovement.Movement.performed += i => movementInput = i.ReadValue<Vector2>();
+            
             playerControls.PlayerActions.Sprint.performed += i => sprint_Input = true;
             playerControls.PlayerActions.Sprint.canceled += i => sprint_Input = false;
+
             playerControls.PlayerActions.Walk.performed += i => walk_Input = true;
             playerControls.PlayerActions.Walk.canceled += i => walk_Input = false;
-            playerControls.PlayerActions.Run.performed += i => run_Input = true;
-            playerControls.PlayerActions.Run.canceled += i => run_Input = false;
         }
         playerControls.Enable();
     }
@@ -40,7 +40,6 @@ public class InputManager : MonoBehaviour
         HandleMoveInput();
         HandleSprinting();
         HandleWalking();
-        HandleRunning();
     }
 
     private void HandleMoveInput()
@@ -54,7 +53,7 @@ public class InputManager : MonoBehaviour
 
     private void HandleSprinting()
     {
-        if (sprint_Input && moveAmount > 1.5)
+        if (sprint_Input && moveAmount > 0.5f)
         {
             PlayerManager.Instance.isSprinting = true;
 
@@ -67,7 +66,7 @@ public class InputManager : MonoBehaviour
 
     private void HandleWalking()
     {
-        if (walk_Input && moveAmount > 0)
+        if (walk_Input)
         {
             PlayerManager.Instance.isWalking = true;
 
@@ -78,16 +77,4 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    private void HandleRunning()
-    {
-        if (run_Input && moveAmount > 1)
-        {
-            PlayerManager.Instance.isRunning = true;
-
-        }
-        else
-        {
-            PlayerManager.Instance.isRunning = false;
-        }
-    }
 }
