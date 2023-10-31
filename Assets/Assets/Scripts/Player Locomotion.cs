@@ -7,6 +7,7 @@ public class PlayerLocomotion : MonoBehaviour
 {
     Vector3 moveDirection;
     Transform cameraOjb;
+    public LayerMask groundLayer;
 
     private void Awake()
     {
@@ -51,9 +52,9 @@ public class PlayerLocomotion : MonoBehaviour
         targetDirection = targetDirection + cameraOjb.right * PlayerManager.Instance.inputManager.horizontalInput;
         targetDirection.Normalize();
         targetDirection.y = 0;
-        
+
         //line that makes the rotation the same as direction
-        if (targetDirection == Vector3.zero)
+        /*if (targetDirection == Vector3.zero)
         {
             targetDirection = transform.forward;
         }
@@ -61,6 +62,20 @@ public class PlayerLocomotion : MonoBehaviour
         Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
         Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, PlayerManager.Instance.rotationSpeed);
                 
-        transform.rotation = playerRotation;
+        transform.rotation = playerRotation;*/
+
+        Vector3 mousePos = Input.mousePosition;
+        Ray ray = Camera.main.ScreenPointToRay(mousePos);
+        RaycastHit hit;
+
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
+        {
+            Vector3 targetDir = hit.point - transform.position;
+            Quaternion targetRot = Quaternion.LookRotation(targetDir);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRot, PlayerManager.Instance.rotationSpeed);
+        }
+        Debug.DrawRay(ray.origin, ray.direction * 100, Color.red);
+
     }
 }
